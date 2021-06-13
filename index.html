@@ -1,11 +1,39 @@
 Вариант 5. Решить квадратное уравнение. Посмотрите код страницы и вывод в консоль браузера.
 
-<script src="https://github.com/mburdastyh/mburdastyh.github.io/blob/master/shri-async-hw.js"></script>
-
 <script>
-    const {
+    const _wrap = (fn, cb) => {
+        setTimeout(() => {
+            cb(fn());
+        }, Math.random() * 20);
+    };
 
-    } = Homework;
+    const AsyncArray = function(initial) {
+        if (initial && !(initial instanceof Array)) {
+            throw new Error('initial value is not an array');
+        }
+
+        const a = initial ? Array.from(initial) : [];
+
+        this.set = (index, value, cb) => _wrap(() => { a[index] = value }, cb);
+        this.push = (value, cb) => _wrap(() => { a.push(value) }, cb);
+
+        this.get = (index, cb) => _wrap(() => a[index], cb);
+        this.pop = (cb) => _wrap(() => a.pop(), cb);
+        this.length = (cb) => _wrap(() => a.length, cb);
+
+        this.print = () => { console.log(a.toString()); };
+    }
+
+    const add = (a, b, cb) => _wrap(() => a + b, cb);
+    const subtract = (a, b, cb) => _wrap(() => a - b, cb);
+    const multiply = (a, b, cb) => _wrap(() => a * b, cb);
+    const divide = (a, b, cb) => _wrap(() => a / b, cb);
+    const mod = (a, b, cb) => _wrap(() => a % b, cb);
+
+    const less = (a, b, cb) => _wrap(() => a < b, cb);
+    const equal = (a, b, cb) => _wrap(() => a == b, cb);
+    const lessOrEqual = (a, b, cb) => _wrap(() => a <= b, cb);
+    const sqrt = (x, cb) => _wrap(() => Math.sqrt(x), cb);
 
     const promisify = (func) => {
         return (...args) => new Promise(resolve => {
@@ -13,13 +41,13 @@
         });
     };
 
-    const multiplyP = promisify(Homework.multiply);
-    const addP = promisify(Homework.add);
-    const subtractP = promisify(Homework.subtract);
-    const divideP = promisify(Homework.divide);
-    const sqrtP = promisify(Homework.sqrt);
-    const lessP = promisify(Homework.less);
-    const equalP = promisify(Homework.equal);
+    const multiplyP = promisify(multiply);
+    const addP = promisify(add);
+    const subtractP = promisify(subtract);
+    const divideP = promisify(divide);
+    const sqrtP = promisify(sqrt);
+    const lessP = promisify(less);
+    const equalP = promisify(equal);
 
     const resolveSquareEquation = async (a, b, c, cb) => {
         if (await equalP(a, 0)) {
