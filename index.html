@@ -1,0 +1,76 @@
+Вариант 5. Решить квадратное уравнение. Посмотрите код страницы и вывод в консоль браузера.
+
+<script src="shri-async-hw.js"></script>
+
+<script>
+    const {
+
+    } = Homework;
+
+    const promisify = (func) => {
+        return (...args) => new Promise(resolve => {
+            func(...args, resolve)
+        });
+    };
+
+    const multiplyP = promisify(Homework.multiply);
+    const addP = promisify(Homework.add);
+    const subtractP = promisify(Homework.subtract);
+    const divideP = promisify(Homework.divide);
+    const sqrtP = promisify(Homework.sqrt);
+    const lessP = promisify(Homework.less);
+    const equalP = promisify(Homework.equal);
+
+    const resolveSquareEquation = async (a, b, c, cb) => {
+        if (await equalP(a, 0)) {
+            const minusB = await multiplyP(-1, b);
+            const root = await divideP(c, minusB);
+
+            cb(+root, 'root2 is not exist');
+            return;
+        }
+
+        const [fourA, bIn2, twoA, minusB] = await Promise.all([
+            multiplyP(4, a),
+            multiplyP(b, b),
+            multiplyP(2, a),
+            multiplyP(-1, b)
+        ]);
+
+        const fourAC = await multiplyP(fourA, c);
+        const discIn2 = await subtractP(bIn2, fourAC);
+        const disc = await sqrtP(discIn2);
+
+        if (await lessP(discIn2, 0)) {
+            cb('root1 is not exist', 'root2 is not exist');
+            return;
+        }
+
+        const [numerator1, numerator2] = await Promise.all([subtractP(minusB, disc), addP(minusB, disc)]);
+        const [root1, root2] = await Promise.all([divideP(numerator1, twoA), divideP(numerator2, twoA)]);
+
+        cb(root1, root2);
+    };
+
+    resolveSquareEquation(3, -14, 5, (root1, root2) => {
+        console.log(`3x^2 - 14x + 5 = 0. Корни: ${root1}, ${root2}`);
+    });
+    resolveSquareEquation(5, 0, 0, (root1, root2) => {
+        console.log(`5x^2 = 0. Корни: ${root1}, ${root2}`);
+    });
+    resolveSquareEquation(4, 0, -3, (root1, root2) => {
+        console.log(`4x^2 - 3 = 0. Корни: ${root1}, ${root2}`);
+    });
+    resolveSquareEquation(4, 0, 3, (root1, root2) => {
+        console.log(`4x^2 + 3 = 0. Корни: ${root1}, ${root2}`);
+    });
+    resolveSquareEquation(4, -7, 0, (root1, root2) => {
+        console.log(`4x^2 - 7x = 0. Корни: ${root1}, ${root2}`);
+    });
+    resolveSquareEquation(0, 1, -2, (root1, root2) => {
+        console.log(`x - 2 = 0. Корни: ${root1}, ${root2}`);
+    });
+    resolveSquareEquation(1, 4, 4, (root1, root2) => {
+        console.log(`x^2 + 4x + 4 = 0. Корни: ${root1}, ${root2}`);
+    });
+</script>
