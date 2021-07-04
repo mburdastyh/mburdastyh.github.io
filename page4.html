@@ -4,11 +4,11 @@
 const dfs = (node, arr) => {
     arr.push(node.value);
 
-    if (node.childrens.length === 0) {
+    if (node.children.length === 0) {
         return;
     }
 
-    const childrens = node.childrens;
+    const children = node.children;
 
     childrens.forEach((child) => {
         return dfs(child, arr);
@@ -19,21 +19,21 @@ const dfs = (node, arr) => {
 
 const testTree = {
     value: 1,
-    childrens: [
+    children: [
         {
             value: 2,
-            childrens: [],
+            children: [],
         },
         {
             value: 3,
-            childrens: [
+            children: [
                 {
                     value: 4,
-                    childrens: [],
+                    children: [],
                 },
                 {
                     value: 5,
-                    childrens: [],
+                    children: [],
                 },
             ]
         }
