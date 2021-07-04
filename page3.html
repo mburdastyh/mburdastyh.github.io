@@ -1,6 +1,6 @@
 Алгоритм 3
 <script>
-function isValid(str) {
+const isValid = (str) => {
     const isClosed = (e) => [')', ']', '}'].includes(e);
     const isOpened = (e) => ['(', '[', '{'].includes(e);
     const brackets = {
