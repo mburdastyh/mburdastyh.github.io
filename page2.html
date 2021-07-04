@@ -1,0 +1,22 @@
+<script>
+const bubbleSort = (arr) => {
+    const res = [];
+
+    while (arr.length !== 0) {
+        let max = arr[0];
+        let maxIndex = 0;
+
+        for (let i = 1; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+                maxIndex = i;
+            }
+        }
+
+        arr.splice(maxIndex, 1);
+        res.push(max);
+    }
+
+    return res;
+};
+</script>
