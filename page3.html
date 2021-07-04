@@ -1,0 +1,27 @@
+Алгоритм 3
+<script>
+function isValid(str) {
+    const isClosed = (e) => [')', ']', '}'].includes(e);
+    const isOpened = (e) => ['(', '[', '{'].includes(e);
+    const brackets = {
+        ')': '(',
+        ']': '[',
+        '}': '{'
+    };
+    const stack = [];
+
+    for (let i = 0; i < str.length; i++) {
+        if (isOpened(str[i])) {
+            stack.push(str[i]);
+        }
+
+        if (isClosed(str[i])) {
+            if (stack.pop() !== brackets[str[i]]) {
+                return false;
+            }
+        }
+    }
+    
+    return stack.length === 0;
+};
+</script>
