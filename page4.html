@@ -1,3 +1,47 @@
+Задача 4 с примером использования функции.
+
 <script>
-  
+const dfs = (node, arr) => {
+    arr.push(node.value);
+
+    if (node.childrens.length === 0) {
+        return;
+    }
+
+    const childrens = node.childrens;
+
+    childrens.map((child) => {
+        return dfs(child, arr);
+    });
+};
+
+
+
+const testTree = {
+    value: 1,
+    childrens: [
+        {
+            value: 2,
+            childrens: [],
+        },
+        {
+            value: 3,
+            childrens: [
+                {
+                    value: 4,
+                    childrens: [],
+                },
+                {
+                    value: 5,
+                    childrens: [],
+                },
+            ]
+        }
+    ]
+};
+
+const arr = []
+dfs(testTree, arr);
+
+console.log(arr);
 </script>
