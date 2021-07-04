@@ -1,5 +1,19 @@
-Задача 6.
+Задача 6. Сортировка на месте
 
 <script>
-  
+const getInsSort = (arr) => {
+    for (let j = 1; j < arr.length; j++) {
+        const temp = arr[j];
+
+        let i = j;
+
+        while ((arr[i - 1] < temp) && (i > 0)) {
+            arr[i] = arr[i - 1];
+            i--;
+        }
+        arr[i] = temp;
+    }
+
+    return arr;
+};  
 </script>
