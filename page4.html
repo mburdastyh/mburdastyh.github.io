@@ -10,7 +10,7 @@ const dfs = (node, arr) => {
 
     const childrens = node.childrens;
 
-    childrens.map((child) => {
+    childrens.forEach((child) => {
         return dfs(child, arr);
     });
 };
