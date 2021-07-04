@@ -1,0 +1,24 @@
+Задача 8. Не успела проверить все случаи
+<script>
+const findElBinary = (arr, el) => {
+    let startIndex = 0;
+    let endIndex = arr.length - 1;
+
+    while (startIndex <= endIndex) {
+        let middleIndex = Math.floor((startIndex + endIndex) / 2);
+        if (arr[middleIndex] === el) {
+                return middleIndex;
+        }
+
+        if (el < arr[middleIndex]) {
+            endIndex = middleIndex - 1;
+        } else {
+            startIndex = middleIndex + 1;
+        }
+    }
+
+    return -1;
+};
+
+console.log(findElBinary([1, 5, 7, 20, 15], 20))
+</script>
