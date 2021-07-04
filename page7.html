@@ -1,5 +1,36 @@
 Задача 7
+С проверкой
 
 <script>
+const reverseList = (node) => {
+    let currentNode = node;
+    let previousNode = null;
 
+    while(currentNode !== null) {
+        const temp = currentNode.next;
+
+        currentNode.next = previousNode;
+        previousNode = currentNode;
+        currentNode = temp;
+    }
+
+    return previousNode;
+}
+
+const test = {
+    value: 1,
+    next: {
+        value: 2,
+        next: {
+            value: 3,
+            next: {
+                value: 4,
+                next: null
+            }
+        }
+    }
+};
+
+console.log(JSON.stringify(test))
+console.log(JSON.stringify(reverseList(test)))
 </script>
