@@ -2,18 +2,19 @@
 
 <script>
 const getInsSort = (arr) => {
+    const res = [arr[0]];
+
     for (let j = 1; j < arr.length; j++) {
         const temp = arr[j];
 
-        let i = j;
-
-        while ((arr[i - 1] < temp) && (i > 0)) {
-            arr[i] = arr[i - 1];
-            i--;
+        let i = 0;
+        while (temp < res[i] && i < res.length) {
+            i++;
         }
-        arr[i] = temp;
+
+        res.splice(i, 0, temp);
     }
 
-    return arr;
-};  
+    return res;
+};
 </script>
