@@ -1,9 +1,11 @@
 Задача 5.
 
 <script>
-const isPrime = (num) => {
-    for (let i = 3; i < Math.floor(Math.sqrt(num)) + 1; i++) {
-        if (num % i === 0) {
+const isPrime = (num, primes) => {
+    const forCheck = primes.filter(prime => prime < Math.floor(Math.sqrt(num)) + 1);
+
+    for (let i = 0; i < forCheck.length; i++) {
+        if (num % forCheck[i] === 0) {
             return false;
         }
     }
@@ -12,14 +14,14 @@ const isPrime = (num) => {
 };
 
 const getPrimes = (num) => {
-    if (num < 2){
+    if (num < 2) {
         return [];
     }
 
     const res = [2];
 
     for (let i = 3; i <= num; i = i + 2) {
-        if (isPrime(i)) {
+        if (isPrime(i, res)) {
             res.push(i);
         }
     }
